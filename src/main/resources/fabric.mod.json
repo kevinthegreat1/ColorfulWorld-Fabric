@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "colorfulconcrete",
+  "version": "${version}",
+
+  "name": "Colorful Concrete",
+  "description": "Adds all colors of concrete. Yes, ALL possible colors.",
+  "authors": [
+    "Kevinthegreat"
+  ],
+  "contact": {
+    "homepage": "https://github.com/kevinthegreat1/ColorfulConcrete-Fabric",
+    "sources": "https://github.com/kevinthegreat1/ColorfulConcrete-Fabric",
+    "issues" : "https://github.com/kevinthegreat1/ColorfulConcrete-Fabric/issues"
+  },
+
+  "license": "MIT",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ],
+    "client": [
+    ]
+  },
+  "mixins": [
+    "colorfulconcrete.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
