@@ -19,8 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "com.kevinthegreat.colorfulconcrete.ColorfulConcrete"
     ],
     "client": [
+      "com.kevinthegreat.colorfulconcrete.ColorfulConcreteClient"
     ]
   },
   "mixins": [
