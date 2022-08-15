@@ -10,8 +10,21 @@
             ],
             "entries":     [
                 {
-                    "type": "minecraft:item",
-                    "name": "colorfulconcrete:colorful_concrete_powder"
+                    "type":      "minecraft:item",
+                    "functions": [
+                        {
+                            "function": "minecraft:copy_nbt",
+                            "ops":      [
+                                {
+                                    "op":     "replace",
+                                    "source": "Color",
+                                    "target": "BlockEntityTag.Color"
+                                }
+                            ],
+                            "source":   "block_entity"
+                        }
+                    ],
+                    "name":      "colorfulconcrete:colorful_concrete_powder"
                 }
             ],
             "rolls":       1.0
