@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Optional;
 
 public class ColorfulBlockEntity extends BlockEntity implements RenderAttachmentBlockEntity {
-    public static final String colorKey = "Color";
     private int color;
 
     public ColorfulBlockEntity(BlockPos pos, BlockState state) {
@@ -23,19 +22,19 @@ public class ColorfulBlockEntity extends BlockEntity implements RenderAttachment
     }
 
     public void readFrom(ItemStack itemStack) {
-        color = Optional.ofNullable(BlockItem.getBlockEntityNbt(itemStack)).map((nbtCompound) -> nbtCompound.getInt(colorKey)).orElse(0);
+        color = Optional.ofNullable(BlockItem.getBlockEntityNbt(itemStack)).map((nbtCompound) -> nbtCompound.getInt(ColorfulConcrete.COLOR_KEY)).orElse(0);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        color = nbt.getInt(colorKey);
+        color = nbt.getInt(ColorfulConcrete.COLOR_KEY);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        nbt.putInt(colorKey, color);
+        nbt.putInt(ColorfulConcrete.COLOR_KEY, color);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class ColorfulBlockEntity extends BlockEntity implements RenderAttachment
 
     public ItemStack getPickStack(ItemStack itemStack) {
         NbtCompound nbtCompound = new NbtCompound();
-        nbtCompound.putInt(colorKey, color);
+        nbtCompound.putInt(ColorfulConcrete.COLOR_KEY, color);
         BlockItem.setBlockEntityNbt(itemStack, ColorfulConcrete.COLORFUL_BLOCK_ENTITY, nbtCompound);
         return itemStack;
     }

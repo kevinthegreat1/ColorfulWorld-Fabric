@@ -1,7 +1,7 @@
 {
     "parent":   "block/block",
     "textures": {
-        "all":      "block/white_concrete_powder",
+        "all":      "colorfulconcrete:block/colorful_concrete_powder",
         "particle": "#all"
     },
     "elements": [
