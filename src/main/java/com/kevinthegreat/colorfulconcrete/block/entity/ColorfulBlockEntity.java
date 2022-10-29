@@ -1,6 +1,7 @@
 package com.kevinthegreat.colorfulconcrete.block.entity;
 
 import com.kevinthegreat.colorfulconcrete.ColorfulConcrete;
+import com.kevinthegreat.colorfulconcrete.util.Util;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,8 +13,6 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.Optional;
-
 public class ColorfulBlockEntity extends BlockEntity implements RenderAttachmentBlockEntity {
     private int color;
 
@@ -21,8 +20,8 @@ public class ColorfulBlockEntity extends BlockEntity implements RenderAttachment
         super(ColorfulConcrete.COLORFUL_BLOCK_ENTITY, pos, state);
     }
 
-    public void readFrom(ItemStack itemStack) {
-        color = Optional.ofNullable(BlockItem.getBlockEntityNbt(itemStack)).map((nbtCompound) -> nbtCompound.getInt(ColorfulConcrete.COLOR_KEY)).orElse(0);
+    public void readFrom(ItemStack stack) {
+        color = Util.getColorFromStack(stack);
     }
 
     @Override
