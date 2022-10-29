@@ -1,33 +1,38 @@
 {
-    "type":  "minecraft:block",
+    "type": "minecraft:block",
     "pools": [
         {
             "bonus_rolls": 0.0,
-            "conditions":  [
+            "conditions": [
                 {
                     "condition": "minecraft:survives_explosion"
                 }
             ],
-            "entries":     [
+            "entries": [
                 {
-                    "type":      "minecraft:item",
+                    "type": "minecraft:item",
                     "functions": [
                         {
                             "function": "minecraft:copy_nbt",
-                            "ops":      [
+                            "ops": [
                                 {
-                                    "op":     "replace",
+                                    "op": "replace",
+                                    "source": "id",
+                                    "target": "BlockEntityTag.id"
+                                },
+                                {
+                                    "op": "replace",
                                     "source": "Color",
                                     "target": "BlockEntityTag.Color"
                                 }
                             ],
-                            "source":   "block_entity"
+                            "source": "block_entity"
                         }
                     ],
-                    "name":      "colorfulconcrete:colorful_concrete_powder"
+                    "name": "colorfulconcrete:colorful_concrete_powder"
                 }
             ],
-            "rolls":       1.0
+            "rolls": 1.0
         }
     ]
 }
