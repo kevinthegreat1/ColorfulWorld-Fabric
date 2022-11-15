@@ -14,7 +14,7 @@
     "issues" : "https://github.com/kevinthegreat1/ColorfulConcrete-Fabric/issues"
   },
 
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
 
   "environment": "*",
   "entrypoints": {
