@@ -4,14 +4,17 @@ import com.kevinthegreat.colorfulconcrete.block.ColorfulConcreteBlock;
 import com.kevinthegreat.colorfulconcrete.block.ColorfulConcretePowderBlock;
 import com.kevinthegreat.colorfulconcrete.block.entity.ColorfulBlockEntity;
 import com.kevinthegreat.colorfulconcrete.item.ColorfulItem;
+import com.kevinthegreat.colorfulconcrete.util.FillDebugWorldCommand;
 import com.kevinthegreat.colorfulconcrete.util.MapColorGetter;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
@@ -19,6 +22,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.server.command.CommandManager.literal;
 
 public class ColorfulConcrete implements ModInitializer {
     public static final String MOD_ID = "colorfulconcrete";
@@ -35,5 +41,9 @@ public class ColorfulConcrete implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info(MOD_NAME + " initialized.");
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("colorfulconcrete").then((literal("debugworld")).requires(source -> source.hasPermissionLevel(2)).executes(FillDebugWorldCommand::execute)).then(literal("setblock").then(argument("pos", BlockPosArgumentType.blockPos()).executes(context -> {
+            context.getSource().getWorld().setBlockState(BlockPosArgumentType.getLoadedBlockPos(context, "pos"), ColorfulConcrete.COLORFUL_CONCRETE_POWDER.getDefaultState());
+            return 1;
+        })))));
     }
 }
