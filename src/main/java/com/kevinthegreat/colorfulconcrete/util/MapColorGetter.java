@@ -1,6 +1,7 @@
 package com.kevinthegreat.colorfulconcrete.util;
 
 import com.google.common.collect.ImmutableMap;
+import com.kevinthegreat.colorfulconcrete.mixin.MapColorAccessor;
 import net.minecraft.block.MapColor;
 
 import java.util.HashMap;
@@ -12,8 +13,8 @@ public class MapColorGetter {
     private final Map<Integer, MapColor> mapColorCache = new HashMap<>();
 
     public MapColorGetter() {
-        ImmutableMap.Builder<short[], MapColor> builder = ImmutableMap.builderWithExpectedSize(MapColor.COLORS.length);
-        for (MapColor mapColor : MapColor.COLORS) {
+        ImmutableMap.Builder<short[], MapColor> builder = ImmutableMap.builderWithExpectedSize(MapColorAccessor.getCOLORS().length);
+        for (MapColor mapColor : MapColorAccessor.getCOLORS()) {
             if (mapColor != null && mapColor != MapColor.CLEAR) {
                 builder.put(getRGB(mapColor.color), mapColor);
             }
