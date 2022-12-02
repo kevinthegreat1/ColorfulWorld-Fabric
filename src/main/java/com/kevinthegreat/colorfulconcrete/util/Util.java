@@ -11,7 +11,7 @@ public class Util {
     private static final HexFormat HEX_FORMAT = HexFormat.of().withUpperCase();
 
     public static int getColorFromStack(ItemStack stack) {
-        return Optional.ofNullable(BlockItem.getBlockEntityNbt(stack)).map((nbtCompound) -> nbtCompound.getInt(ColorfulConcrete.COLOR_KEY)).orElse(0);
+        return Optional.ofNullable(BlockItem.getBlockEntityNbt(stack)).map(nbtCompound -> nbtCompound.getInt(ColorfulConcrete.COLOR_KEY)).orElse(0);
     }
 
     public static String getColorCodeFromStack(ItemStack stack) {

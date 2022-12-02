@@ -1,16 +1,33 @@
 package com.kevinthegreat.colorfulconcrete.util;
 
 import com.kevinthegreat.colorfulconcrete.ColorfulConcrete;
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.block.Block;
+import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
-public class FillDebugWorldCommand {
-    public static int execute(CommandContext<ServerCommandSource> context) {
+import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.server.command.CommandManager.literal;
+
+public class DebugCommands {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
+        dispatcher.register(literal("colorfulconcrete").then(literal("debugworld").requires(source -> source.hasPermissionLevel(2)).executes(DebugCommands::execute))
+                .then(literal("setblock").then(argument("pos", BlockPosArgumentType.blockPos()).executes(context -> {
+            context.getSource().getWorld().setBlockState(BlockPosArgumentType.getLoadedBlockPos(context, "pos"), ColorfulConcrete.COLORFUL_CONCRETE_POWDER.getDefaultState(), 0, 0);
+            return 1;
+        }))));
+
+    }
+
+    private static int execute(CommandContext<ServerCommandSource> context) {
         ServerWorld world = context.getSource().getWorld();
         ServerCommandSource source = context.getSource();
         source.sendFeedback(Text.of("Filling debug world, this may take a while!"), true);
@@ -31,7 +48,7 @@ public class FillDebugWorldCommand {
                 }
                 float hue = (float) (MathHelper.atan2(blockPos.getZ(), blockPos.getX()) / (2 * Math.PI));
                 int color = MathHelper.hsvToRgb(hue < 0 ? hue + 1 : hue, MathHelper.sqrt(hypotSquared) / 256, value);
-                world.setBlockState(blockPos.add(center), ColorfulConcrete.COLORFUL_CONCRETE.getDefaultState());
+                world.setBlockState(blockPos.add(center), ColorfulConcrete.COLORFUL_CONCRETE.getDefaultState(), Block.NOTIFY_ALL, 0);
                 NbtCompound nbt = new NbtCompound();
                 nbt.putInt(ColorfulConcrete.COLOR_KEY, color);
                 world.getBlockEntity(blockPos.add(center), ColorfulConcrete.COLORFUL_BLOCK_ENTITY).ifPresent(blockEntity -> blockEntity.readNbt(nbt));

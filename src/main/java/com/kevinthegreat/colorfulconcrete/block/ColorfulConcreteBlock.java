@@ -19,12 +19,12 @@ public class ColorfulConcreteBlock extends Block implements ColorfulBlockEntityP
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (world.isClient) {
-            world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).ifPresent((blockEntity) -> blockEntity.readFrom(itemStack));
+            world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).ifPresent(blockEntity -> blockEntity.readFrom(itemStack));
         }
     }
 
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).map((blockEntity) -> blockEntity.getPickStack(new ItemStack(this))).orElse(super.getPickStack(world, pos, state));
+        return world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).map(blockEntity -> blockEntity.getPickStack(new ItemStack(this))).orElse(super.getPickStack(world, pos, state));
     }
 }

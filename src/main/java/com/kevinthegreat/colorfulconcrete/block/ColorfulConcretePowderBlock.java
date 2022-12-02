@@ -26,7 +26,7 @@ public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements 
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (world.isClient) {
-            world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).ifPresent((blockEntity) -> blockEntity.readFrom(itemStack));
+            world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).ifPresent(blockEntity -> blockEntity.readFrom(itemStack));
         }
     }
 
@@ -36,7 +36,6 @@ public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements 
         if (state.isOf(ColorfulConcrete.COLORFUL_CONCRETE_POWDER) && newState.isOf(ColorfulConcrete.COLORFUL_CONCRETE)) {
             return;
         }
-        world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).ifPresent((blockEntity) -> System.out.println(blockEntity.getRenderAttachmentData()));
         super.onStateReplaced(state, world, pos, newState, moved);
     }
 
@@ -56,6 +55,6 @@ public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements 
 
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).map((blockEntity) -> blockEntity.getPickStack(new ItemStack(this))).orElse(super.getPickStack(world, pos, state));
+        return world.getBlockEntity(pos, ColorfulConcrete.COLORFUL_BLOCK_ENTITY).map(blockEntity -> blockEntity.getPickStack(new ItemStack(this))).orElse(super.getPickStack(world, pos, state));
     }
 }
