@@ -13,6 +13,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ColorfulItem extends BlockItem {
+    public ColorfulItem(Block block) {
+        this(block, new Settings());
+    }
+
     public ColorfulItem(Block block, Settings settings) {
         super(block, settings);
     }
