@@ -14,7 +14,7 @@ import java.util.function.Function;
 @Mixin(Block.class)
 public abstract class BlockMixin {
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/state/StateManager$Builder;build(Ljava/util/function/Function;Lnet/minecraft/state/StateManager$Factory;)Lnet/minecraft/state/StateManager;"))
-    private StateManager<Block, BlockState> build(StateManager.Builder<Block, BlockState> builder, Function<Block, BlockState> defaultStateGetter, StateManager.Factory<Block, BlockState> factory) {
+    private StateManager<Block, BlockState> colorfulconcrete_build(StateManager.Builder<Block, BlockState> builder, Function<Block, BlockState> defaultStateGetter, StateManager.Factory<Block, BlockState> factory) {
         return builder.build(defaultStateGetter, this instanceof ColorfulBlockEntityProvider ? ColorfulBlockState::new : factory);
     }
 }
