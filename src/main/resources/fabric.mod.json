@@ -1,33 +1,33 @@
 {
   "schemaVersion": 1,
-  "id": "colorfulconcrete",
+  "id": "colorfulworld",
   "version": "${version}",
 
-  "name": "Colorful Concrete",
-  "description": "Adds all colors of concrete. Yes, ALL possible colors.",
+  "name": "Colorful World",
+  "description": "Adds all colors of blocks. Yes, ALL possible colors.",
   "authors": [
     "Kevinthegreat"
   ],
   "contact": {
-    "homepage": "https://github.com/kevinthegreat1/ColorfulConcrete-Fabric",
-    "sources": "https://github.com/kevinthegreat1/ColorfulConcrete-Fabric",
-    "issues" : "https://github.com/kevinthegreat1/ColorfulConcrete-Fabric/issues"
+    "homepage": "https://github.com/kevinthegreat1/ColorfulWorld-Fabric",
+    "sources": "https://github.com/kevinthegreat1/ColorfulWorld-Fabric",
+    "issues" : "https://github.com/kevinthegreat1/ColorfulWorld-Fabric/issues"
   },
 
   "license": "GPL-3.0-or-later",
-  "icon": "assets/colorfulconcrete/icon.png",
+  "icon": "assets/colorfulworld/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.kevinthegreat.colorfulconcrete.ColorfulConcrete"
+      "com.kevinthegreat.colorfulworld.ColorfulWorld"
     ],
     "client": [
-      "com.kevinthegreat.colorfulconcrete.ColorfulConcreteClient"
+      "com.kevinthegreat.colorfulworld.ColorfulWorldClient"
     ]
   },
   "mixins": [
-    "colorfulconcrete.mixins.json"
+      "colorfulworld.mixins.json"
   ],
 
   "depends": {

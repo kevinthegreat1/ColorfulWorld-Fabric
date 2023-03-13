@@ -1,6 +1,7 @@
-# Colorful Concrete
+# Colorful World
 
-Adds all colors of concrete. Yes, ALL possible colors.  
+Adds all colors of blocks. Yes, ALL possible colors.  
+Currently adds colorful concrete. More blocks coming soon.
 
 ### Requirements
 
