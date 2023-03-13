@@ -3,6 +3,7 @@ package com.kevinthegreat.colorfulworld;
 import com.kevinthegreat.colorfulworld.block.ColorfulConcreteBlock;
 import com.kevinthegreat.colorfulworld.block.ColorfulConcretePowderBlock;
 import com.kevinthegreat.colorfulworld.block.ColorfulGlassBlock;
+import com.kevinthegreat.colorfulworld.block.ColorfulGlassPaneBlock;
 import com.kevinthegreat.colorfulworld.block.entity.ColorfulBlockEntity;
 import com.kevinthegreat.colorfulworld.item.ColorfulItem;
 import com.kevinthegreat.colorfulworld.util.DebugCommands;
@@ -34,10 +35,12 @@ public class ColorfulWorld implements ModInitializer {
     public static final Block COLORFUL_CONCRETE = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "colorful_concrete"), new ColorfulConcreteBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(1.8F)));
     public static final Block COLORFUL_CONCRETE_POWDER = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "colorful_concrete_powder"), new ColorfulConcretePowderBlock(COLORFUL_CONCRETE, AbstractBlock.Settings.of(Material.AGGREGATE, MapColor.BLACK).strength(0.5F).sounds(BlockSoundGroup.SAND)));
     public static final Block COLORFUL_GLASS = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "colorful_glass"), new ColorfulGlassBlock(AbstractBlock.Settings.of(Material.GLASS).strength(0.3f).sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning(ColorfulWorld::never).solidBlock(ColorfulWorld::never).suffocates(ColorfulWorld::never).blockVision(ColorfulWorld::never)));
-    public static final BlockEntityType<ColorfulBlockEntity> COLORFUL_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "colorful_block_entity"), FabricBlockEntityTypeBuilder.create(ColorfulBlockEntity::new, COLORFUL_CONCRETE, COLORFUL_CONCRETE_POWDER, COLORFUL_GLASS).build());
+    public static final Block COLORFUL_GLASS_PANE = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "colorful_glass_pane"), new ColorfulGlassPaneBlock(AbstractBlock.Settings.of(Material.GLASS).strength(0.3f).sounds(BlockSoundGroup.GLASS).nonOpaque()));
+    public static final BlockEntityType<ColorfulBlockEntity> COLORFUL_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "colorful_block_entity"), FabricBlockEntityTypeBuilder.create(ColorfulBlockEntity::new, COLORFUL_CONCRETE, COLORFUL_CONCRETE_POWDER, COLORFUL_GLASS, COLORFUL_GLASS_PANE).build());
     public static final Item COLORFUL_CONCRETE_ITEM = Registry.register(Registries.ITEM, Registries.BLOCK.getId(COLORFUL_CONCRETE), new ColorfulItem(COLORFUL_CONCRETE));
     public static final Item COLORFUL_CONCRETE_POWDER_ITEM = Registry.register(Registries.ITEM, Registries.BLOCK.getId(COLORFUL_CONCRETE_POWDER), new ColorfulItem(COLORFUL_CONCRETE_POWDER));
     public static final Item COLORFUL_GLASS_ITEM = Registry.register(Registries.ITEM, Registries.BLOCK.getId(COLORFUL_GLASS), new ColorfulItem(COLORFUL_GLASS));
+    public static final Item COLORFUL_GLASS_PANE_ITEM = Registry.register(Registries.ITEM, Registries.BLOCK.getId(COLORFUL_GLASS_PANE), new ColorfulItem(COLORFUL_GLASS_PANE));
     public static final MapColorGetter MAP_COLOR_GETTER = new MapColorGetter();
 
     @Override
@@ -46,6 +49,7 @@ public class ColorfulWorld implements ModInitializer {
             entries.addAfter(Items.PINK_CONCRETE, COLORFUL_CONCRETE_ITEM);
             entries.addAfter(Items.PINK_CONCRETE_POWDER, COLORFUL_CONCRETE_POWDER_ITEM);
             entries.addAfter(Items.PINK_STAINED_GLASS, COLORFUL_GLASS_ITEM);
+            entries.addAfter(Items.PINK_STAINED_GLASS_PANE, COLORFUL_GLASS_PANE_ITEM);
         });
         CommandRegistrationCallback.EVENT.register(DebugCommands::register);
         LOGGER.info(MOD_NAME + " initialized.");
