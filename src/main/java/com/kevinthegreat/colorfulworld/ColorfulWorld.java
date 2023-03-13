@@ -35,7 +35,7 @@ public class ColorfulWorld implements ModInitializer {
     public static final BlockEntityType<ColorfulBlockEntity> COLORFUL_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "colorful_block_entity"), FabricBlockEntityTypeBuilder.create(ColorfulBlockEntity::new, COLORFUL_CONCRETE, COLORFUL_CONCRETE_POWDER).build());
     public static final Item COLORFUL_CONCRETE_ITEM = Registry.register(Registries.ITEM, Registries.BLOCK.getId(COLORFUL_CONCRETE), new ColorfulItem(COLORFUL_CONCRETE));
     public static final Item COLORFUL_CONCRETE_POWDER_ITEM = Registry.register(Registries.ITEM, Registries.BLOCK.getId(COLORFUL_CONCRETE_POWDER), new ColorfulItem(COLORFUL_CONCRETE_POWDER));
-    public static final MapColorGetter mapColorGetter = new MapColorGetter();
+    public static final MapColorGetter MAP_COLOR_GETTER = new MapColorGetter();
 
     @Override
     public void onInitialize() {
