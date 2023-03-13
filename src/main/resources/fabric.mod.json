@@ -24,6 +24,9 @@
     ],
     "client": [
       "com.kevinthegreat.colorfulworld.ColorfulWorldClient"
+    ],
+    "fabric-datagen": [
+      "com.kevinthegreat.colorfulworld.datagen.ColorfulWorldDataGeneration"
     ]
   },
   "mixins": [
