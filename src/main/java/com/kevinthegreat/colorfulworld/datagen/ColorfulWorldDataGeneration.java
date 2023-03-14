@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
@@ -28,11 +29,12 @@ public class ColorfulWorldDataGeneration implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = dataGenerator.createPack();
         pack.addProvider(ColorfulWorldBlockStateModelGenerator::new);
         pack.addProvider(ColorfulWorldBlockLootTableGenerator::new);
+        pack.addProvider(ColorfulWorldEnglishLanguageGenerator::new);
         pack.addProvider(ColorfulWorldTagGenerator::new);
     }
 
     private static class ColorfulWorldBlockStateModelGenerator extends FabricModelProvider {
-        public ColorfulWorldBlockStateModelGenerator(FabricDataOutput output) {
+        private ColorfulWorldBlockStateModelGenerator(FabricDataOutput output) {
             super(output);
         }
 
@@ -49,7 +51,7 @@ public class ColorfulWorldDataGeneration implements DataGeneratorEntrypoint {
     }
 
     private static class ColorfulWorldBlockLootTableGenerator extends FabricBlockLootTableProvider {
-        public ColorfulWorldBlockLootTableGenerator(FabricDataOutput dataOutput) {
+        private ColorfulWorldBlockLootTableGenerator(FabricDataOutput dataOutput) {
             super(dataOutput);
         }
 
@@ -57,22 +59,42 @@ public class ColorfulWorldDataGeneration implements DataGeneratorEntrypoint {
         public void generate() {
             addDrop(ColorfulWorld.COLORFUL_CONCRETE, this::colorfulDrops);
             addDrop(ColorfulWorld.COLORFUL_CONCRETE_POWDER, this::colorfulDrops);
-            addDrop(ColorfulWorld.COLORFUL_GLASS, this::colorfulDrops);
-            addDrop(ColorfulWorld.COLORFUL_GLASS_PANE, this::colorfulDrops);
+            addDrop(ColorfulWorld.COLORFUL_GLASS, this::colorfulDropsWithSilkTouch);
+            addDrop(ColorfulWorld.COLORFUL_GLASS_PANE, this::colorfulDropsWithSilkTouch);
         }
 
         private LootTable.Builder colorfulDrops(Block drop) {
             return LootTable.builder().pool(addSurvivesExplosionCondition(drop, LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).with(ItemEntry.builder(drop).apply(CopyNbtLootFunction.builder(ContextLootNbtProvider.BLOCK_ENTITY).withOperation("id", "BlockEntityTag.id").withOperation("Color", "BlockEntityTag.Color")))));
         }
+
+        private LootTable.Builder colorfulDropsWithSilkTouch(Block drop) {
+            return LootTable.builder().pool(addSurvivesExplosionCondition(drop, LootPool.builder().conditionally(WITH_SILK_TOUCH).rolls(ConstantLootNumberProvider.create(1)).with(ItemEntry.builder(drop).apply(CopyNbtLootFunction.builder(ContextLootNbtProvider.BLOCK_ENTITY).withOperation("id", "BlockEntityTag.id").withOperation("Color", "BlockEntityTag.Color")))));
+        }
+    }
+
+    private static class ColorfulWorldEnglishLanguageGenerator extends FabricLanguageProvider {
+        private ColorfulWorldEnglishLanguageGenerator(FabricDataOutput dataOutput) {
+            super(dataOutput);
+        }
+
+        @Override
+        public void generateTranslations(TranslationBuilder translationBuilder) {
+            translationBuilder.add(ColorfulWorld.COLORFUL_CONCRETE, "Colorful Concrete");
+            translationBuilder.add(ColorfulWorld.COLORFUL_CONCRETE_POWDER, "Colorful Concrete Powder");
+            translationBuilder.add(ColorfulWorld.COLORFUL_GLASS, "Colorful Glass");
+            translationBuilder.add(ColorfulWorld.COLORFUL_GLASS_PANE, "Colorful Glass Pane");
+        }
     }
 
     private static class ColorfulWorldTagGenerator extends FabricTagProvider<Block> {
-        public ColorfulWorldTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        private ColorfulWorldTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
             super(output, RegistryKeys.BLOCK, registriesFuture);
         }
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup arg) {
+            getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ColorfulWorld.COLORFUL_CONCRETE);
+            getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE).add(ColorfulWorld.COLORFUL_CONCRETE_POWDER);
             getOrCreateTagBuilder(BlockTags.IMPERMEABLE).add(ColorfulWorld.COLORFUL_GLASS);
         }
     }
