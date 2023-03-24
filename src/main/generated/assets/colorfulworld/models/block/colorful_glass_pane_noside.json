@@ -1,6 +1,15 @@
 {
-  "parent": "minecraft:block/template_glass_pane_noside",
+  "parent":   "minecraft:block/template_glass_pane_noside",
   "textures": {
     "pane": "colorfulworld:block/colorful_glass"
-  }
+  },
+  "elements": [
+    {
+      "from":  [7, 0, 7],
+      "to":    [9, 16, 9],
+      "faces": {
+        "north": {"uv": [9, 0, 7, 16], "tintindex": 0, "texture": "#pane"}
+      }
+    }
+  ]
 }
