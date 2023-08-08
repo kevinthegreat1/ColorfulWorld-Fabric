@@ -13,6 +13,7 @@ public class MapColorGetter {
     private final Map<Integer, MapColor> mapColorCache = new HashMap<>();
 
     public MapColorGetter() {
+        @SuppressWarnings("UnstableApiUsage")
         ImmutableMap.Builder<short[], MapColor> builder = ImmutableMap.builderWithExpectedSize(MapColorAccessor.getCOLORS().length);
         for (MapColor mapColor : MapColorAccessor.getCOLORS()) {
             if (mapColor != null && mapColor != MapColor.CLEAR) {

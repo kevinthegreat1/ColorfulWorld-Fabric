@@ -2,8 +2,8 @@ package com.kevinthegreat.colorfulworld.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.kevinthegreat.colorfulworld.ColorfulWorld;
-import com.kevinthegreat.colorfulworld.block.entity.ColorfulBlockEntity;
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
@@ -18,6 +18,7 @@ public class ColorfulBlockState extends BlockState {
 
     @Override
     public MapColor getMapColor(BlockView world, BlockPos pos) {
-        return world.getBlockEntity(pos, ColorfulWorld.COLORFUL_BLOCK_ENTITY).map(ColorfulBlockEntity::getRenderAttachmentData).map(ColorfulWorld.MAP_COLOR_GETTER::getMapColor).orElse(super.getMapColor(world, pos));
+        Object color = ((RenderAttachedBlockView) world).getBlockEntityRenderAttachment(pos);
+        return color != null ? ColorfulWorld.MAP_COLOR_GETTER.getMapColor(color) : super.getMapColor(world, pos);
     }
 }

@@ -18,22 +18,21 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class DebugCommands {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
-        dispatcher.register(literal("colorfulworld").then(literal("debugworld").requires(source -> source.hasPermissionLevel(2)).executes(DebugCommands::execute))
-                .then(literal("setblock").then(argument("pos", BlockPosArgumentType.blockPos()).executes(context -> {
-            context.getSource().getWorld().setBlockState(BlockPosArgumentType.getLoadedBlockPos(context, "pos"), ColorfulWorld.COLORFUL_CONCRETE_POWDER.getDefaultState(), 0, 0);
-            return 1;
-        }))));
-
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, @SuppressWarnings("unused") CommandRegistryAccess registryAccess, @SuppressWarnings("unused") CommandManager.RegistrationEnvironment environment) {
+        dispatcher.register(literal(ColorfulWorld.MOD_ID).then(literal("debugworld").requires(source -> source.hasPermissionLevel(2)).executes(DebugCommands::execute))
+                .then(literal("setcolorfulconcretepowder").then(argument("pos", BlockPosArgumentType.blockPos()).executes(context -> {
+                    context.getSource().getWorld().setBlockState(BlockPosArgumentType.getLoadedBlockPos(context, "pos"), ColorfulWorld.COLORFUL_CONCRETE_POWDER.getDefaultState(), 0, 0);
+                    return 1;
+                }))));
     }
 
     private static int execute(CommandContext<ServerCommandSource> context) {
         ServerWorld world = context.getSource().getWorld();
         ServerCommandSource source = context.getSource();
-        source.sendFeedback(Text.of("Filling debug world, this may take a while!"), true);
+        source.sendFeedback(() -> Text.of("Filling debug world, this may take a while!"), true);
         fillCircle(world, new BlockPos(0, 0, 0), 1);
         fillCircle(world, new BlockPos(512, 0, 0), 0.5F);
-        source.sendFeedback(Text.of("Filled debug world"), true);
+        source.sendFeedback(() -> Text.of("Filled debug world"), true);
         return 1;
     }
 

@@ -1,7 +1,7 @@
 package com.kevinthegreat.colorfulworld.block;
 
 import com.kevinthegreat.colorfulworld.ColorfulWorld;
-import com.kevinthegreat.colorfulworld.block.entity.ColorfulBlockEntity;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ConcretePowderBlock;
@@ -44,7 +44,8 @@ public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements 
         if (!FallingBlock.canFallThrough(world.getBlockState(pos.down())) || pos.getY() < world.getBottomY()) {
             return;
         }
-        int color = (int) world.getBlockEntity(pos, ColorfulWorld.COLORFUL_BLOCK_ENTITY).map(ColorfulBlockEntity::getRenderAttachmentData).orElse(0);
+        @SuppressWarnings("DataFlowIssue")
+        int color = (int) ((RenderAttachedBlockView) world).getBlockEntityRenderAttachment(pos);
         FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, pos, state);
         if (fallingBlockEntity.blockEntityData == null) {
             fallingBlockEntity.blockEntityData = new NbtCompound();
