@@ -1,7 +1,6 @@
 package com.kevinthegreat.colorfulworld.block;
 
 import com.kevinthegreat.colorfulworld.ColorfulWorld;
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ConcretePowderBlock;
@@ -13,8 +12,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements ColorfulBlockEntityProvider {
@@ -45,7 +44,7 @@ public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements 
             return;
         }
         @SuppressWarnings("DataFlowIssue")
-        int color = (int) ((RenderAttachedBlockView) world).getBlockEntityRenderAttachment(pos);
+        int color = (int) world.getBlockEntityRenderData(pos);
         FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, pos, state);
         if (fallingBlockEntity.blockEntityData == null) {
             fallingBlockEntity.blockEntityData = new NbtCompound();
@@ -55,7 +54,7 @@ public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements 
     }
 
     @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         return world.getBlockEntity(pos, ColorfulWorld.COLORFUL_BLOCK_ENTITY).map(blockEntity -> blockEntity.getPickStack(new ItemStack(this))).orElse(super.getPickStack(world, pos, state));
     }
 }

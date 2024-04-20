@@ -18,7 +18,7 @@ public class ColorfulBlockState extends BlockState {
 
     @Override
     public MapColor getMapColor(BlockView world, BlockPos pos) {
-        Object color = ((RenderAttachedBlockView) world).getBlockEntityRenderAttachment(pos);
+        Object color = world.getBlockEntityRenderData(pos);
         return color != null ? ColorfulWorld.MAP_COLOR_GETTER.getMapColor(color) : super.getMapColor(world, pos);
     }
 }
