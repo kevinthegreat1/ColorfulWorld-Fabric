@@ -29,7 +29,6 @@ public class ColorfulConcretePowderBlock extends ConcretePowderBlock implements 
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.isOf(ColorfulWorld.COLORFUL_CONCRETE_POWDER) && newState.isOf(ColorfulWorld.COLORFUL_CONCRETE)) {

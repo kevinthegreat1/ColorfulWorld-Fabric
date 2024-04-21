@@ -1,5 +1,5 @@
-// 1.19.4 Release Candidate 2	2023-03-13T17:14:45.932049	Colorful World/Block Loot Tables
-1daf994b46a44e55824fd4b82b04fd22dcaf8125 data/colorfulworld/loot_tables/blocks/colorful_concrete_powder.json
-f6ce5e9732366e99dc94f9340f254c3aad41e523 data/colorfulworld/loot_tables/blocks/colorful_glass_pane.json
-8bdfc70c42623cf5ab94e3a933ee06f597e07045 data/colorfulworld/loot_tables/blocks/colorful_concrete.json
-d192a11e561d14db2b1a274040cca34d98a31ed8 data/colorfulworld/loot_tables/blocks/colorful_glass.json
+// 1.20.5 Release Candidate 2	2024-04-20T20:40:21.223559	Colorful World/Block Loot Tables
+b8888ccdc31b146608e1de3120dc84746304b427 data/colorfulworld/loot_tables/blocks/colorful_concrete_powder.json
+8ac3aa157be3a2c459a6060814790001613190ff data/colorfulworld/loot_tables/blocks/colorful_glass_pane.json
+861bd2ba74346fb3af1c871793d24b1f91845155 data/colorfulworld/loot_tables/blocks/colorful_concrete.json
+4508f77e613b7b4e851162d3f8f27dfbd2c7c241 data/colorfulworld/loot_tables/blocks/colorful_glass.json

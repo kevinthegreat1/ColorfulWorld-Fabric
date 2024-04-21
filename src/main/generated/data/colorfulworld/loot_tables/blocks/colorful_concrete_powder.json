@@ -13,18 +13,11 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:copy_nbt",
-              "ops": [
-                {
-                  "op": "replace",
-                  "source": "id",
-                  "target": "BlockEntityTag.id"
-                },
-                {
-                  "op": "replace",
-                  "source": "Color",
-                  "target": "BlockEntityTag.Color"
-                }
+              "function": "minecraft:copy_components",
+              "include": [
+                "colorfulworld:color",
+                "minecraft:item_name",
+                "minecraft:hide_additional_tooltip"
               ],
               "source": "block_entity"
             }

@@ -30,6 +30,10 @@ repositories {
 	}
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/colorfulworld.accesswidener")
+}
+
 fabricApi {
 	configureDataGeneration()
 }
@@ -43,7 +47,7 @@ dependencies {
 	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modLocalRuntime "maven.modrinth:sodium:${project.sodium_version}"
+//	modLocalRuntime "maven.modrinth:sodium:${project.sodium_version}"
 
 	testImplementation "net.fabricmc:fabric-loader-junit:${project.loader_version}"
 }

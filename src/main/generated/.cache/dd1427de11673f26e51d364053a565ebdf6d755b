@@ -1,4 +1,4 @@
-// 1.19.4 Release Candidate 2	2023-03-13T17:14:45.934309	Colorful World/Tags for minecraft:block
-34b180d2b313e37f99118c41049f0384f9fca384 data/minecraft/tags/blocks/mineable/shovel.json
-d97b880d0e4cf21b00c05d8d9c85196f02d63f2d data/minecraft/tags/blocks/impermeable.json
-10c28593706491775a1a98c0c9d7e64a8e269991 data/minecraft/tags/blocks/mineable/pickaxe.json
+// 1.20.5 Release Candidate 2	2024-04-20T20:40:21.242	Colorful World/Tags for minecraft:block
+7a35c71aa87ae45a9fe11c40a5cd2b64fb982cc0 data/minecraft/tags/blocks/impermeable.json
+8f73d93ec83501c581fdd073c2d42bab6411a72c data/minecraft/tags/blocks/mineable/shovel.json
+f21de4dc766c5937a61b7d1fbe292fdebe818505 data/minecraft/tags/blocks/mineable/pickaxe.json

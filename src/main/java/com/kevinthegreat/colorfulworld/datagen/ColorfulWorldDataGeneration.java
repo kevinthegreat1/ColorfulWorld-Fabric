@@ -9,11 +9,13 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.function.CopyComponentsLootFunction;
 import net.minecraft.loot.function.CopyNbtLootFunction;
 import net.minecraft.loot.provider.nbt.ContextLootNbtProvider;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
@@ -51,8 +53,8 @@ public class ColorfulWorldDataGeneration implements DataGeneratorEntrypoint {
     }
 
     private static class ColorfulWorldBlockLootTableGenerator extends FabricBlockLootTableProvider {
-        private ColorfulWorldBlockLootTableGenerator(FabricDataOutput dataOutput) {
-            super(dataOutput);
+        private ColorfulWorldBlockLootTableGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+            super(dataOutput, registryLookup);
         }
 
         @Override
@@ -64,21 +66,21 @@ public class ColorfulWorldDataGeneration implements DataGeneratorEntrypoint {
         }
 
         private LootTable.Builder colorfulDrops(Block drop) {
-            return LootTable.builder().pool(addSurvivesExplosionCondition(drop, LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).with(ItemEntry.builder(drop).apply(CopyNbtLootFunction.builder(ContextLootNbtProvider.BLOCK_ENTITY).withOperation("id", "BlockEntityTag.id").withOperation("Color", "BlockEntityTag.Color")))));
+            return LootTable.builder().pool(addSurvivesExplosionCondition(drop, LootPool.builder().rolls(ConstantLootNumberProvider.create(1)).with(ItemEntry.builder(drop).apply(CopyComponentsLootFunction.builder(CopyComponentsLootFunction.Source.BLOCK_ENTITY).include(ColorfulWorld.COLOR).include(DataComponentTypes.ITEM_NAME).include(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)))));
         }
 
         private LootTable.Builder colorfulDropsWithSilkTouch(Block drop) {
-            return LootTable.builder().pool(addSurvivesExplosionCondition(drop, LootPool.builder().conditionally(WITH_SILK_TOUCH).rolls(ConstantLootNumberProvider.create(1)).with(ItemEntry.builder(drop).apply(CopyNbtLootFunction.builder(ContextLootNbtProvider.BLOCK_ENTITY).withOperation("id", "BlockEntityTag.id").withOperation("Color", "BlockEntityTag.Color")))));
+            return LootTable.builder().pool(addSurvivesExplosionCondition(drop, LootPool.builder().conditionally(WITH_SILK_TOUCH).rolls(ConstantLootNumberProvider.create(1)).with(ItemEntry.builder(drop).apply(CopyComponentsLootFunction.builder(CopyComponentsLootFunction.Source.BLOCK_ENTITY).include(ColorfulWorld.COLOR).include(DataComponentTypes.ITEM_NAME).include(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)))));
         }
     }
 
     private static class ColorfulWorldEnglishLanguageGenerator extends FabricLanguageProvider {
-        private ColorfulWorldEnglishLanguageGenerator(FabricDataOutput dataOutput) {
-            super(dataOutput);
+        private ColorfulWorldEnglishLanguageGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+            super(dataOutput, registryLookup);
         }
 
         @Override
-        public void generateTranslations(TranslationBuilder translationBuilder) {
+        public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
             translationBuilder.add(ColorfulWorld.COLORFUL_CONCRETE, "Colorful Concrete");
             translationBuilder.add(ColorfulWorld.COLORFUL_CONCRETE_POWDER, "Colorful Concrete Powder");
             translationBuilder.add(ColorfulWorld.COLORFUL_GLASS, "Colorful Glass");

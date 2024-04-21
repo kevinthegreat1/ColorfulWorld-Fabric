@@ -50,7 +50,7 @@ public class DebugCommands {
                 world.setBlockState(blockPos.add(center), ColorfulWorld.COLORFUL_CONCRETE.getDefaultState(), Block.NOTIFY_ALL, 0);
                 NbtCompound nbt = new NbtCompound();
                 nbt.putInt(ColorfulWorld.COLOR_KEY, color);
-                world.getBlockEntity(blockPos.add(center), ColorfulWorld.COLORFUL_BLOCK_ENTITY).ifPresent(blockEntity -> blockEntity.readNbt(nbt));
+                world.getBlockEntity(blockPos.add(center), ColorfulWorld.COLORFUL_BLOCK_ENTITY).ifPresent(blockEntity -> blockEntity.readNbt(nbt, world.getRegistryManager()));
                 blockPos.move(0, 0, 1);
             }
             blockPos.move(1, 0, -512);

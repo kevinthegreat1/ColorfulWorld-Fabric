@@ -32,6 +32,7 @@
   "mixins": [
       "colorfulworld.mixins.json"
   ],
+  "accessWidener" : "colorfulworld.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.14.11",
