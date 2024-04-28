@@ -35,12 +35,9 @@
   "accessWidener" : "colorfulworld.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.14.11",
+    "fabricloader": ">=0.15",
     "fabric": "*",
-    "minecraft": ">=1.20",
-    "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "minecraft": ">=1.20.5",
+    "java": ">=21"
   }
 }

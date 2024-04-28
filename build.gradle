@@ -31,11 +31,27 @@ repositories {
 }
 
 loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"colorfulworld" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
 	accessWidenerPath = file("src/main/resources/colorfulworld.accesswidener")
 }
 
 fabricApi {
 	configureDataGeneration()
+}
+
+sourceSets {
+	test {
+		compileClasspath += client.compileClasspath
+		runtimeClasspath += client.runtimeClasspath
+	}
 }
 
 dependencies {
@@ -47,7 +63,7 @@ dependencies {
 	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-//	modLocalRuntime "maven.modrinth:sodium:${project.sodium_version}"
+	modLocalRuntime "maven.modrinth:sodium:${project.sodium_version}"
 
 	testImplementation "net.fabricmc:fabric-loader-junit:${project.loader_version}"
 }
@@ -61,7 +77,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -70,8 +86,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -112,15 +128,13 @@ publishMods {
 		projectId = "714920"
 		projectSlug = "colorful-world" // Required for discord webhook
 		accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-		minecraftVersions.add("1.20.3")
-		minecraftVersions.add("1.20.4")
+		minecraftVersions.add("1.20.5")
 		requires("fabric-api")
 	}
 	modrinth {
 		projectId = "9053RcP8"
 		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-		minecraftVersions.add("1.20.3")
-		minecraftVersions.add("1.20.4")
+		minecraftVersions.add("1.20.5")
 	}
 	github {
 		repository = "kevinthegreat1/ColorfulWorld-Fabric"

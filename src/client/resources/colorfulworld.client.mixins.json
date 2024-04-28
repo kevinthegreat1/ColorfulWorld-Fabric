@@ -3,10 +3,8 @@
     "minVersion": "0.8",
     "package": "com.kevinthegreat.colorfulworld.mixin",
     "compatibilityLevel": "JAVA_21",
-    "mixins": [
-        "BlockMixin",
-        "ItemStackComponentizationFixMixin",
-        "MapColorAccessor"
+    "client": [
+        "BlockColorsMixin"
     ],
     "injectors": {
         "defaultRequire": 1
